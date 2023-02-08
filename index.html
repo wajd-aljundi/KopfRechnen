@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <p id="score">0</p>
+        <div>
+            <p id="numbers"></p>
+        </div>
+        <div class="buttons_container">
+            <button onclick="generate()" class="generator">start</button>
+            <button onclick="Restart()" class="Restart">Restart</button>
+        </div>
+        <div class="input_content">
+            <span>your answer</span>
+            <input type="text" id="answer" class="user_input">
+        </div>
+        <button onclick="Submit()" class="submission">submit</button>
+    </div>
+</body>
+<script>
+    var i = 0;
+    var list_numbers = [];
+    y=0;
+    x=0;
+    function generate(){
+        setInterval(generateRandomNumbers, 2000);
+    }
+    function generateRandomNumbers(){
+        if(i<20){
+            document.getElementById("numbers").innerHTML = "";
+            n1 = Math.floor((Math.random()*9)+1);
+            list_numbers.push(n1);
+            document.getElementById("numbers").innerHTML = n1;
+            i++;        
+        }
+    }
+    function Submit(){
+        z = document.getElementById("answer").value;
+        for(let value in list_numbers){
+            x += parseFloat(list_numbers[value]);
+        }
+        if(parseFloat(z) == parseFloat(x)){
+            list_numbers = [];
+            i=0;
+            x=0;
+            z=0;
+            alert("Correct!");
+            generate();
+            y += 1;
+        }
+        else{
+            alert(`Wrong! the answer is ${x}, your score is ${y}, you will have to start again`);
+            location.reload();
+        }
+        document.getElementById("score").innerHTML = y;
+    }
+    function Restart(){
+        location.reload();
+    }
+</script>
+</html>
